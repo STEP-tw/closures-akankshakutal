@@ -37,7 +37,7 @@ const makeDeltaTracker = function (count) {
   }
   return countDelta;
 };
-const makeFiboGenerator = undefined
+const makeFiboGenerator = undefined;
 /*const makeFiboGenerator = function (number) {
   let specifedNumber = (number != undefined) ? number : 0;
   let firstNum = -1;
@@ -70,7 +70,15 @@ const makeCycler = function(colors) {
   }
   return cycleColours;
 };
-const curry = undefined;
+
+const curry = function (functionRef,number) {
+  const func = functionRef;
+  const addTwo = function(value1,value2) {
+   return  func(number,value1,value2);
+  }
+  return addTwo;
+};
+
 const compose = undefined;
 
 exports.makeConstant=makeConstant;
