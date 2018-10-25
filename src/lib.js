@@ -1,13 +1,12 @@
 const makeConstant = function (value) {
   const generateconstantValue = function () {
-    const constantValue = value;
-    return constantValue;
+    return value;
   }
   return generateconstantValue;
 };
 
-const makeCounterFromN = function (count) {
-  let counter = count;
+const makeCounterFromN = function (initialValue) {
+  let counter = initialValue;
   const getCount = function () {
     return counter ++;
   }
@@ -15,81 +14,67 @@ const makeCounterFromN = function (count) {
 };
 
 const makeCounterFromZero = function () {
-  let counter = 0;
-  const getCount = function () {
-    return counter ++;
-  }
-  return getCount;
+  return makeCounterFromN(0);
 };
 
-const makeDeltaTracker = function (count) {
-  let delta = {old : 0 , delta : 0 , new : count};
+const makeDeltaTracker = function (initialValue) {
+  let tracker = {old : 0 , delta: 0 , new : initialValue};
   const trackDelta = function(value) { 
-    delta.old = delta.new;
+    tracker.old = tracker.new;
+    let deltaValue = value;
     if (!value) {
-      delta.delta = 0;
-      delta.new = count;
-    } else {
-      delta.new += value
-      delta.delta = value;
-    }
-    return Object.assign({}, delta);
+      deltaValue = 0;
+    } 
+      tracker.new += deltaValue;
+      tracker.delta = deltaValue;
+    return Object.assign({}, tracker);
   }
   return trackDelta;
 };
 
-const makeFiboGenerator = function (number1,number2) {
-  let firstNum,secondNum;
-  if(number1 == undefined && number2 == undefined) {
-    firstNum = -1;
-    secondNum = 1;
+const makeFiboGenerator = function (firstInitialValue,secondInitialValue) {
+  let firstTerm,secondTerm;
+  secondTerm = secondInitialValue - firstInitialValue;
+  firstTerm = firstInitialValue - secondTerm;
+  if(firstInitialValue == undefined && secondInitialValue == undefined) {
+    firstTerm = -1;
+    secondTerm = 1;
   } 
-  if(number2 == undefined && number1 != undefined) {
-    firstNum = -number1;
-    secondNum = number1;
+  if(secondInitialValue == undefined && firstInitialValue != undefined) {
+    firstTerm = -firstInitialValue;
+    secondTerm = firstInitialValue;
   } 
-  if(number1 != undefined && number2 != undefined){
-    secondNum = number2 - number1;
-    firstNum = number1 - secondNum;
+  const getNextFiboTerm = function() {
+    let thirdTerm = firstTerm + secondTerm;
+    firstTerm = secondTerm;
+    secondTerm = thirdTerm;
+    return thirdTerm;
   }
-  const getNextFiboNum = function() {
-    let thirdNum = firstNum + secondNum;
-    firstNum = secondNum;
-    secondNum = thirdNum;
-    return thirdNum;
-  }
-  return getNextFiboNum;
+  return getNextFiboTerm;
 };
 
-const makeCycler = function(colors) {
-  const colours = [];
-  for(let index=0; index <colors.length; index++) {
-    colours[index] = colors[index];
-  }
+const makeCycler = function(list) {
+  const copyOfList = list.slice();
   let index = 0;
-  const cycleColours = function() { 
-    if(index < colours.length) {
+  const cycler = function() { 
+      let returnValueIndex = index %copyOfList.length;
       index ++;
-      return colours[index-1];
-    }
-    index = 1;
-    return colours[index-1];
+      return copyOfList[returnValueIndex];
   }
-  return cycleColours;
+  return cycler;
 };
 
-const curry = function (functionRef,number) {
-  const func = functionRef;
-  const addTwo = function(value1,value2) {
-    return  func(number,value1,value2);
+const curry = function (combiner,initialValue) {
+  const combine = function(value1,value2) {
+    return  combiner(initialValue,value1,value2);
   }
-  return addTwo;
+  return combine;
 };
 
-const compose = function (func1,func2) {
-  const lastPosition = function (dataset1,dataset2) {
-    let result = func2(dataset1,dataset2)
-    result = func1(result);
+const compose = function (function1,function2) {
+  const lastPosition = function (firstList,secondList) {
+    let result = function2(firstList,secondList)
+    result = function1(result);
     return result;
   };
   return lastPosition;
