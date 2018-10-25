@@ -37,9 +37,39 @@ const makeDeltaTracker = function (count) {
   }
   return countDelta;
 };
+const makeFiboGenerator = undefined
+/*const makeFiboGenerator = function (number) {
+  let specifedNumber = (number != undefined) ? number : 0;
+  let firstNum = -1;
+  let secondNum = 1;
+  const getNextFiboNumber = function () {
+    let count = 0; 
+    let thirdNum = firstNum + secondNum ;
+    firstNum = secondNum;
+    secondNum = thirdNum;
+    result = (thirdNum) * (specifedNumber * count);
+    count = 1;
+    return result;
+  }
+  return getNextFiboNumber;
+};*/
 
-const makeFiboGenerator = undefined;
-const makeCycler = undefined;
+const makeCycler = function(colors) {
+  const colours = [];
+  for(let index=0; index <colors.length; index++) {
+    colours[index] = colors[index];
+  }
+  let index = 0;
+  const cycleColours = function() { 
+    if(index < colours.length) {
+      index ++;
+      return colours[index-1];
+    }
+    index = 1;
+    return colours[index-1];
+  }
+  return cycleColours;
+};
 const curry = undefined;
 const compose = undefined;
 
