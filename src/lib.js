@@ -1,54 +1,56 @@
 const makeConstant = function (value) {
-  constantlyReturnTwo = function () {
+  const generateconstantValue = function () {
     const constantValue = value;
     return constantValue;
   }
-  return constantlyReturnTwo;
+  return generateconstantValue;
 };
 
-const makeCounterFromN = function (countvalue) {
-  let count = countvalue;
-  const counter = function () {
-    return count ++;
+const makeCounterFromN = function (count) {
+  let counter = count;
+  const getCount = function () {
+    return counter ++;
   }
-  return counter;
+  return getCount;
 };
 
 const makeCounterFromZero = function () {
-  let count = 0;
-  const counter = function () {
-    return count ++;
+  let counter = 0;
+  const getCount = function () {
+    return counter ++;
   }
-  return counter;
+  return getCount;
 };
 
 const makeDeltaTracker = function (count) {
   let delta = {old : 0 , delta : 0 , new : count};
-  const countDelta = function(value) { 
-    delta .old = delta.new;
+  const trackDelta = function(value) { 
+    delta.old = delta.new;
     if (!value) {
       delta.delta = 0;
       delta.new = count;
     } else {
       delta.new += value
-     delta.delta = value;
+      delta.delta = value;
     }
      return delta;
   }
-  return countDelta;
+  return trackDelta;
 };
+
 const makeFiboGenerator = function (number1,number2) {
   let firstNum,secondNum;
-  let specifedNum = 1;
   if(number1 == undefined && number2 == undefined) {
     firstNum = -1;
     secondNum = 1;
-  } else if(number2 == undefined && number1 != undefined) {
-    firstNum = -2;
-    secondNum = 2;
-  } else {
-    firstNum = -1;
-    secondNum = 2;
+  } 
+  if(number2 == undefined && number1 != undefined) {
+    firstNum = -number1;
+    secondNum = number1;
+  } 
+  if(number1 != undefined && number2 != undefined){
+    secondNum = number2 - number1;
+    firstNum = number1 - secondNum;
   }
   const getNextFiboNum = function() {
     let thirdNum = firstNum + secondNum;
