@@ -22,7 +22,22 @@ const makeCounterFromZero = function () {
   return counter;
 };
 
-const makeDeltaTracker = undefined;
+const makeDeltaTracker = function (count) {
+  let delta = {old : 0 , delta : 0 , new : count};
+  const countDelta = function(value) { 
+    delta .old = delta.new;
+    if (!value) {
+      delta.delta = 0;
+      delta.new = count;
+    } else {
+      delta.new += value
+     delta.delta = value;
+    }
+     return delta;
+  }
+  return countDelta;
+};
+
 const makeFiboGenerator = undefined;
 const makeCycler = undefined;
 const curry = undefined;
