@@ -79,7 +79,14 @@ const curry = function (functionRef,number) {
   return addTwo;
 };
 
-const compose = undefined;
+const compose = function (func1,func2) {
+  const lastPosition = function (dataset1,dataset2) {
+   let result = func2(dataset1,dataset2)
+    result = func1(result);
+    return result;
+  };
+  return lastPosition;
+};
 
 exports.makeConstant=makeConstant;
 exports.makeCounterFromZero=makeCounterFromZero;
