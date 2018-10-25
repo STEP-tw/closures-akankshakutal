@@ -33,7 +33,7 @@ const makeDeltaTracker = function (count) {
       delta.new += value
       delta.delta = value;
     }
-     return delta;
+    return delta;
   }
   return trackDelta;
 };
@@ -81,14 +81,14 @@ const makeCycler = function(colors) {
 const curry = function (functionRef,number) {
   const func = functionRef;
   const addTwo = function(value1,value2) {
-   return  func(number,value1,value2);
+    return  func(number,value1,value2);
   }
   return addTwo;
 };
 
 const compose = function (func1,func2) {
   const lastPosition = function (dataset1,dataset2) {
-   let result = func2(dataset1,dataset2)
+    let result = func2(dataset1,dataset2)
     result = func1(result);
     return result;
   };
