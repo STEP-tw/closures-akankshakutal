@@ -25,8 +25,8 @@ const makeDeltaTracker = function (initialValue) {
     if (!value) {
       deltaValue = 0;
     } 
-      tracker.new += deltaValue;
-      tracker.delta = deltaValue;
+    tracker.new = tracker.new + deltaValue;
+    tracker.delta = deltaValue;
     return Object.assign({}, tracker);
   }
   return trackDelta;
@@ -57,9 +57,9 @@ const makeCycler = function(list) {
   const copyOfList = list.slice();
   let index = 0;
   const cycler = function() { 
-      let returnValueIndex = index %copyOfList.length;
-      index ++;
-      return copyOfList[returnValueIndex];
+    let returnValueIndex = index %copyOfList.length;
+    index ++;
+    return copyOfList[returnValueIndex];
   }
   return cycler;
 };
