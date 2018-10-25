@@ -1,6 +1,27 @@
-const makeConstant = undefined;
-const makeCounterFromN = undefined;
-const makeCounterFromZero = undefined;
+const makeConstant = function (value) {
+  constantlyReturnTwo = function () {
+    const constantValue = value;
+    return constantValue;
+  }
+  return constantlyReturnTwo;
+};
+
+const makeCounterFromN = function (countvalue) {
+  let count = countvalue;
+  const counter = function () {
+    return count ++;
+  }
+  return counter;
+};
+
+const makeCounterFromZero = function () {
+  let count = 0;
+  const counter = function () {
+    return count ++;
+  }
+  return counter;
+};
+
 const makeDeltaTracker = undefined;
 const makeFiboGenerator = undefined;
 const makeCycler = undefined;
