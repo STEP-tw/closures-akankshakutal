@@ -33,7 +33,7 @@ const makeDeltaTracker = function (count) {
       delta.new += value
       delta.delta = value;
     }
-    return delta;
+    return Object.assign({}, delta);
   }
   return trackDelta;
 };
