@@ -37,22 +37,27 @@ const makeDeltaTracker = function (count) {
   }
   return countDelta;
 };
-const makeFiboGenerator = undefined;
-/*const makeFiboGenerator = function (number) {
-  let specifedNumber = (number != undefined) ? number : 0;
-  let firstNum = -1;
-  let secondNum = 1;
-  const getNextFiboNumber = function () {
-    let count = 0; 
-    let thirdNum = firstNum + secondNum ;
+const makeFiboGenerator = function (number1,number2) {
+  let firstNum,secondNum;
+  let specifedNum = 1;
+  if(number1 == undefined && number2 == undefined) {
+    firstNum = -1;
+    secondNum = 1;
+  } else if(number2 == undefined && number1 != undefined) {
+    firstNum = -2;
+    secondNum = 2;
+  } else {
+    firstNum = -1;
+    secondNum = 2;
+  }
+  const getNextFiboNum = function() {
+    let thirdNum = firstNum + secondNum;
     firstNum = secondNum;
     secondNum = thirdNum;
-    result = (thirdNum) * (specifedNumber * count);
-    count = 1;
-    return result;
+    return thirdNum;
   }
-  return getNextFiboNumber;
-};*/
+  return getNextFiboNum;
+};
 
 const makeCycler = function(colors) {
   const colours = [];
