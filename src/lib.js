@@ -1,16 +1,14 @@
 const makeConstant = function (value) {
-  const generateconstantValue = function () {
+  return function () {
     return value;
   }
-  return generateconstantValue;
 };
 
 const makeCounterFromN = function (initialValue) {
   let counter = initialValue;
-  const getCount = function () {
+  return function () {
     return counter ++;
   }
-  return getCount;
 };
 
 const makeCounterFromZero = function () {
@@ -19,7 +17,7 @@ const makeCounterFromZero = function () {
 
 const makeDeltaTracker = function (initialValue) {
   let tracker = {old : 0 , delta: 0 , new : initialValue};
-  const trackDelta = function(value) { 
+  return function(value) { 
     tracker.old = tracker.new;
     let deltaValue = value;
     if (!value) {
@@ -29,55 +27,50 @@ const makeDeltaTracker = function (initialValue) {
     tracker.delta = deltaValue;
     return Object.assign({}, tracker);
   }
-  return trackDelta;
 };
 
 const makeFiboGenerator = function (firstInitialValue,secondInitialValue) {
-  let firstTerm,secondTerm;
-  secondTerm = secondInitialValue - firstInitialValue;
-  firstTerm = firstInitialValue - secondTerm;
+  let prevTerm,currentTerm;
+  currentTerm = secondInitialValue - firstInitialValue;
+  prevTerm = firstInitialValue - currentTerm;
   if(firstInitialValue == undefined && secondInitialValue == undefined) {
-    firstTerm = -1;
-    secondTerm = 1;
+    prevTerm = -1;
+    currentTerm = 1;
   } 
   if(secondInitialValue == undefined && firstInitialValue != undefined) {
-    firstTerm = -firstInitialValue;
-    secondTerm = firstInitialValue;
+    prevTerm = -firstInitialValue;
+    currentTerm = firstInitialValue;
   } 
-  const getNextFiboTerm = function() {
-    let thirdTerm = firstTerm + secondTerm;
-    firstTerm = secondTerm;
-    secondTerm = thirdTerm;
-    return thirdTerm;
+  return function() {
+    let nextTerm = prevTerm + currentTerm;
+    prevTerm = currentTerm;
+    currentTerm = nextTerm;
+    return nextTerm;
   }
-  return getNextFiboTerm;
 };
 
 const makeCycler = function(list) {
   const copyOfList = list.slice();
   let index = 0;
-  const cycler = function() { 
+  return function() { 
     let returnValueIndex = index %copyOfList.length;
     index ++;
     return copyOfList[returnValueIndex];
   }
-  return cycler;
 };
 
 const curry = function (combiner,initialValue) {
-  const combine = function(value1,value2) {
+  return function(value1,value2) {
     return  combiner(initialValue,value1,value2);
   }
-  return combine;
 };
 
 const compose = function (function1,function2) {
-  const lastPosition = function (firstList,secondList) {
+  return function (firstList,secondList) {
     let result = function2(firstList,secondList)
     result = function1(result);
     return result;
   };
-  return lastPosition;
 };
 
 exports.makeConstant=makeConstant;
