@@ -16,16 +16,13 @@ const makeCounterFromZero = function () {
 };
 
 const makeDeltaTracker = function (initialValue) {
-  let tracker = {old : 0 , delta: 0 , new : initialValue};
-  return function(value) { 
-    tracker.old = tracker.new;
+  let newValue = initialValue;
+  return function(value = 0 ) { 
+    let old = newValue;
     let deltaValue = value;
-    if (!value) {
-      deltaValue = 0;
-    } 
-    tracker.new = tracker.new + deltaValue;
-    tracker.delta = deltaValue;
-    return Object.assign({}, tracker);
+    newValue = newValue + deltaValue;
+    delta = deltaValue;
+    return {old : old , delta : deltaValue , new : newValue  };
   }
 };
 
